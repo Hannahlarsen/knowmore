@@ -152,6 +152,8 @@ class MailController extends Controller {
 
 		$mail->delete();
 
+		\Session::flash('flash_message', 'The email has been deleted');
+
 		return redirect('mails');
 
 		};

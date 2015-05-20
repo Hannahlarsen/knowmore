@@ -2,8 +2,7 @@
 <head>
 	<title>This is my app</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	{!! HTML::style('css/bootstrap.css') !!}
 
 </head>
 <body>
@@ -26,14 +25,25 @@
 
 	<div class="container">
 
+	@include('flash::message')
+
 	@yield('content')
 
 	</div>
 
 	@yield('footer')
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
-	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+   
+     {!! HTML::script('js/bootstrap.js') !!}
+
+     <script>
+
+     $('#flash-overlay-modal').modal();
+
+     $('div.alert').not('.alert-important').delay(3000).slideUp();
+
+     </script>
 
 </body>
 

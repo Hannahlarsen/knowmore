@@ -48,6 +48,8 @@ class ProjectsController extends Controller {
 		$project->user_id = auth::id();
 		$project->save();
 
+		flash()->overlay('Your project was successfully created ', 'Good job');
+
 		return redirect('projects');
 
 	}
