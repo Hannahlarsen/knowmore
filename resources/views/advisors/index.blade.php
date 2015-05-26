@@ -10,10 +10,7 @@
 
 		@if ($user->active === "on")
 
-		<a href="/advisors/{{ $user->id }}">
-			<h3>{{ $user->name }}</h3>
-		</a>
-		<p>{{ $user->description }}</p>
+			@include('/advisors/_advisors')
 
 		@endif
 		

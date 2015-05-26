@@ -11,7 +11,7 @@
 			<a href="/mail/{{ $post->id }}">
 				<p>{{ $post->headline }} to {{ $post->receiver_name }}</p>
 			</a>
-			<a class="btn btn-default" href="/mails/{{ $post->id }}/delete" role="button">Delete</a>
+			<a class="btn btn-default" href="/mails/{{ $post->id }}/delete/sender" role="button">Delete</a>
 			<a class="btn btn-default" href="/mails/{{ $post->id }}/reply" role="button">Reply</a>
 
 		</div>

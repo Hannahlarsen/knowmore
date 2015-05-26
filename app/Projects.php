@@ -15,7 +15,10 @@ class Projects extends Model {
 			'startime',
 			'endtime',
 			'active',
-			'user_id'
+			'user_id',
+			'sender_read',
+			'receiver_read'
+
 
 	];
 

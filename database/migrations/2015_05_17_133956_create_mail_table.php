@@ -19,6 +19,10 @@ class CreateMailTable extends Migration {
 			$table->integer('sender_id')->unsigned();
 			$table->integer('receiver_id')->unsigned();
 			$table->string('sender_name');
+			$table->integer('sender_deleted');
+			$table->integer('receiver_deleted');
+			$table->integer('sender_read');
+			$table->integer('receiver_read');
 			$table->string('receiver_name');
 			$table->string('headline');
 			$table->text('content');

@@ -10,6 +10,8 @@ class Mail extends Model {
 	'sender_id',
 	'receiver_id',
 	'sender_name',
+	'sender_deleted',
+	'receiver_deleted',
 	'receiver_name'
 
 	];

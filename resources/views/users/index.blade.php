@@ -12,6 +12,7 @@
 			<h3>{{ $user->name }}</h3>
 		</a>
 		<p>{{ $user->description }}</p>
+		<a href="/users/{{ $user->id }}/contact"><button >Contact</button></a>
 
 
 	@endforeach

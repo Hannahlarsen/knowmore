@@ -30,15 +30,18 @@ Route::get('mails/sent', 'MailController@sent');
 Route::get('mails/{id}', 'MailController@show');
 Route::get('mails/{id}/reply', 'MailController@reply');
 Route::get('mails/{id}/delete', 'MailController@destroy');
+Route::get('mails/{id}/delete/sender', 'MailController@destroy_sender');
 Route::post('mails/create', 'MailController@send');
 
 // Recoures
 
 Route::resource('news', 'NewsController');
 Route::resource('projects', 'ProjectsController');
+Route::get('projects/{id}/destroy', 'ProjectsController@destroy');
 Route::resource('ability', 'AbilityController');
 Route::resource('advisors', 'AdvisorsController');
 Route::resource('users', 'UsersController');
+Route::get('users/{id}/contact', 'UsersController@contact');
 
 // user auth
 

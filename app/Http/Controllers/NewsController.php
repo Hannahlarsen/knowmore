@@ -14,12 +14,12 @@ class NewsController extends Controller {
 	public function __construct()
 	{
 
-		$this->middleware('auth', ['except' => 'index']);
+		$this->middleware('auth', ['except' => ['index', 'show'] ]);
 	}
 
 	public function index() {
 
-		$news = News::latest('published')->get();
+		$news = News::latest('published')->orderBy('id', 'desc')->take(5)->get();
 
 		return view('news.index', compact('news'));
 

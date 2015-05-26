@@ -1,7 +1,4 @@
 
-
-<!-- temp -->
-
 <div class="form-group">
 
  {!! Form::label('title', 'Title:') !!}
@@ -55,6 +52,13 @@
 
  {!! Form::label('endtime', 'Expected end time:') !!}
  {!! Form::input('date', 'endtime', date('Y-m-d') , ['class' =>  'form-control']) !!}
+
+</div>
+
+<div class="form-group">
+
+ {!! Form::label('active', 'Is your project currently active:') !!}
+ {!! Form::checkbox('active', null) !!}
 
 </div>
 

@@ -4,12 +4,19 @@
 
 <h1>{!! $user->name !!}, update your profile date below</h1>
 
-{!! Form::model($user, ['method' => 'PATCH', 'url' => 'profile/edit']) !!}
+{!! Form::model($user, ['method' => 'PATCH', 'url' => 'profile/edit', 'files' => true ]) !!}
 
 <div class="form-group">
 
  {!! Form::label('name', 'Title:') !!}
  {!! Form::text('name', null, ['class' =>  'form-control']) !!}
+
+</div>
+
+<div class="form-group">
+
+ {!! Form::label('image', 'Upload a new profile picture:') !!}
+ {!! Form::file('image', null, ['class' =>  'form-control']) !!}
 
 </div>
 
@@ -31,13 +38,6 @@
 
  {!! Form::label('country', 'Your current country of residence:') !!}
  {!! Form::text('country', null, ['class' =>  'form-control']) !!}
-
-</div>
-
-<div class="form-group">
-
- {!! Form::label('picture', 'Link to your profile picture:') !!}
- {!! Form::text('picture', null, ['class' =>  'form-control']) !!}
 
 </div>
 

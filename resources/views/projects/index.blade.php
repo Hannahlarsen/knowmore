@@ -6,7 +6,7 @@
 
 	@foreach ($projects as $project)
 	 	
-	 	<a href="projects/{{ $project->id }}">
+	 	<a href="/projects/{{ $project->id }}">
 			
 			<h2>{{ $project->title }}</h2>
 

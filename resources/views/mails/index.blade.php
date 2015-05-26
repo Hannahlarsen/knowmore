@@ -7,7 +7,12 @@
 
 	 @foreach ($inbox as $post)
 
-		<div>
+		@if ($post->receiver_read === "1") <div class="email_read">
+		@endif
+		@if ($post->receiver_read === "0") <div>
+		@endif
+
+
 			<img src="http://lorempixel.com/output/city-q-g-50-50-6.jpg">
 			<a href="/mails/{{ $post->id }}">
 				<p>{{ $post->headline }} from {{ $post->sender_name }}</p>

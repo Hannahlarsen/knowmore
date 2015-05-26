@@ -88,9 +88,13 @@ class UsersController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+
+	public function contact($id)
 	{
-		//
+		$receiver = User::where('id', $id)->first();
+		return view('mails/contact', compact('receiver'));
+
+
 	}
 
 }

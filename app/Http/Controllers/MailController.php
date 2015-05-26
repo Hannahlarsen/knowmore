@@ -25,7 +25,7 @@ class MailController extends Controller {
 	public function index()
 	{
 		$user = Auth::id();
-		$inbox = Mail::where('receiver_id', $user )->get();
+		$inbox = Mail::where('receiver_id', $user )->where('receiver_deleted', '=', 0 )->orderBy('id', 'desc')->get();
 
 		return view('mails.index', compact('inbox', 'sent'));
 	}
@@ -33,7 +33,7 @@ class MailController extends Controller {
 	public function sent()
 	{
 		$user = Auth::id();
-		$sent = Mail::where('sender_id', $user)->get();
+		$sent = Mail::where('sender_id', $user)->where('sender_deleted', '=', 0 )->get();
 
 		return view('mails.sent', compact('inbox', 'sent'));
 	}
@@ -69,24 +69,36 @@ class MailController extends Controller {
 
 		if ($receivers === 0)
 		 {
-			return "error - receiver does not exist";
+
+		 	flash()->error('The user name was not found in the user database');
+
+			return redirect('mails');
 		};
 
 		if ($receivers > 1)
 		 {
-			return "error - more than one receiver with that name";
+			
+		 	flash()->error('There is more than one user with that name in the datebase - please browse to the correct user and contact him that way');
+
+			return redirect('mails');
 		};
 
-
+		$receiver = User::where('name', $content['receiver_name'])->first();
 
 		$mail = New Mail;
 		$mail->sender_id = $sender['id'];
 		$mail->sender_name = $sender['name'];
 		$mail->content = $content['content'];
 		$mail->headline = $content['headline'];
-		$mail->receiver_id = 1;
+		$mail->receiver_id = $receiver['id'];
+		$mail->receiver_deleted = 0;
+		$mail->sender_deleted = 0;
 		$mail->receiver_name = $content['receiver_name'];
+		$mail->sender_read = 0;
+		$mail->receiver_read = 0;
 		$mail->save();
+
+		flash()->message('Your mail has been sent');
 
 		return redirect('mails');
 
@@ -102,11 +114,15 @@ class MailController extends Controller {
 	{
 		$user = auth::id();
 		$mail = mail::where('id', $id)->first();
+		
+		$mail->receiver_read = 1;
+		$mail->update();
 
-		if ($user === intval($mail['receiver_id'])) {
+
+
+		if ($user === $mail['receiver_id']) {
 		return view('mails.show', compact('mail'));
 		};
-
 
 	}
 
@@ -121,9 +137,12 @@ class MailController extends Controller {
 		$user = auth::id();
 		$mail = mail::where('id', $id)->first();
 
-		if ($user === intval($mail['receiver_id'])) {
+		if ($user === $mail['receiver_id']) {
 		return view('mails.reply', compact('mail'));
 		};
+
+		flash()->error("Something went wrong");
+		return redirect('mails');
 	}
 
 	/**
@@ -148,15 +167,41 @@ class MailController extends Controller {
 		$user = auth::id();
 		$mail = mail::where('id', $id)->first();
 
-		if ($user === intval($mail['receiver_id'])) {
+		if ($user === $mail['receiver_id']) {
 
-		$mail->delete();
+		$mail->receiver_deleted = 1;
+		$mail->update();
 
-		\Session::flash('flash_message', 'The email has been deleted');
+		flash()->message('Email deleted as requested');
 
 		return redirect('mails');
 
 		};
+
+		flash()->error('Something went wrong - please contact an administrator');
+
+		return redirect('mails');
+	}
+
+	public function destroy_sender($id)
+	{
+		$user = auth::id();
+		$mail = mail::where('id', $id)->first();
+
+		if ($user === $mail['sender_id']) {
+
+		$mail->sender_deleted = 1;
+		$mail->update();
+
+		flash()->message('Email deleted as requested');
+
+		return redirect('mails/sent');
+
+		};
+
+		flash()->error('Something went wrong - please contact an administrator');
+
+		return redirect('mails/sent');
 	}
 
 }
